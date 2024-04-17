@@ -1,5 +1,16 @@
 name: Azure Static Web Apps CI/CD
 
+build:
+  # For Node.js, specify the version using node_version key
+  node_version: "20.x"
+
+  # By default, Azure Static Web Apps will try to install dependencies with yarn if it finds a yarn.lock file, 
+  # or npm if it finds a package-lock.json file. You can override this behavior by using the package_manager key.
+  package_manager: "npm"
+
+  # Specify the build command for your application
+  build_command: npm run build
+
 on:
   push:
     branches:
