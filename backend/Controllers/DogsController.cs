@@ -3,7 +3,7 @@ using Azure.Storage.Blobs.Models;
 using canineApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Cors
+using Microsoft.AspNetCore.Cors;
 
 namespace canineApi.Controllers;
 
