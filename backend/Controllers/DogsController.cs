@@ -3,7 +3,6 @@ using Azure.Storage.Blobs.Models;
 using canineApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Cors;
 
 namespace canineApi.Controllers;
 
@@ -28,7 +27,6 @@ public class DogsController : ControllerBase
  }
 
  [HttpPost]
- [EnableCors("OpenPolicy")]
  public async Task<ActionResult<Dog>> Post([FromForm] DogRequest request)
  {
     var blobServiceClient = new BlobServiceClient(_blobConnectionString);
@@ -54,7 +52,7 @@ public class DogsController : ControllerBase
 
    await _context.Dogs.AddAsync(newDog);
    await _context.SaveChangesAsync();
-   return Ok(newDog);
+    return Ok(newDog);
  }
 
 }

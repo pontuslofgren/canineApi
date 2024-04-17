@@ -30,6 +30,7 @@ function App() {
     const response = await fetch("https://canineapplab.azurewebsites.net/dogs", {
       method: 'POST',
       // headers: { 'Content-Type': 'multipart/form-data' },
+      mode: 'no-cors',
       body: formData
     });
 
