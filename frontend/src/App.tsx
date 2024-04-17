@@ -1,36 +1,33 @@
 
-import {  useMutation, useQuery, useQueryClient} from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form"
-
-
-
 
 function App() {
 
-
   const queryClient = useQueryClient();
-  const query = useQuery({queryKey:['getdogs'], queryFn: getDogs})
-  
+  const query = useQuery({ queryKey: ['getdogs'], queryFn: getDogs })
+
   const mutation = useMutation({
-    mutationFn: postDog, 
+    mutationFn: postDog,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['getdogs']})
+      queryClient.invalidateQueries({ queryKey: ['getdogs'] })
     }
   })
-  
-  async function getDogs(): Promise<Dog[]>{
+
+  async function getDogs(): Promise<Dog[]> {
     const response = await fetch("https://canineapplab.azurewebsites.net/dogs");
     const responseJson = await response.json() as Dog[];
+    console.log(responseJson)
     return responseJson;
   }
 
-  async function postDog(name: string){
+  async function postDog(name: string) {
     await fetch("https://canineapplab.azurewebsites.net/dogs", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name: name})
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name })
     });
-    
+
   }
 
   const {
@@ -41,19 +38,21 @@ function App() {
     mutation.mutate(data.name);
   }
 
-
   if (query.isLoading) return (<p>Loading...</p>)
   if (query.error) return (<p>Something went wrong.</p>)
   return (
     <>
-<form onSubmit={handleSubmit(onSubmit)}>
-      <input defaultValue="Dog name" {...register("name")} />
-      <input type="submit" />
-    </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input defaultValue="Dog name" {...register("name")} />
+        <input type="submit" />
+      </form>
       {query.data?.map((dog) => {
-        return(
-        <p>{dog.name}</p>
-      )
+        return (
+          <div>
+            <p>{dog.name}</p>
+            <img src={dog.imageUrl} />
+          </div>
+        )
       })}
     </>
   )
@@ -65,6 +64,7 @@ export default App
 type Dog = {
   id: number;
   name: string;
+  imageUrl: string;
 }
 
 type Inputs = {
