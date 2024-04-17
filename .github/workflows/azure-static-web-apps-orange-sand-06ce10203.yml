@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - frontend/**
+      - .github/workflows/azure-static-web-apps-orange-sand-06ce10203.yml
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
