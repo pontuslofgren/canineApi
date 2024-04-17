@@ -22,10 +22,8 @@ function App() {
   return (
     <>
       {query.data?.map((dog) => {
-        <p>{dog.name}</p>
+        return(<p>{dog.name}</p>)
       })}
-
-      <h1>hello guys</h1>
 
     </>
   )
