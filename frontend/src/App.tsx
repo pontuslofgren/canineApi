@@ -21,13 +21,16 @@ function App() {
     return responseJson;
   }
 
-  async function postDog(name: string) {
+  async function postDog(data: Inputs) {
+    const formData = new FormData();
+    formData.append("Name", data.name);
+    formData.append("Image", data.image);
+
     await fetch("https://canineapplab.azurewebsites.net/dogs", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name })
+      headers: { 'Content-Type': 'multipart/form-data' },
+      body: formData
     });
-
   }
 
   const {
@@ -35,7 +38,7 @@ function App() {
     handleSubmit,
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    mutation.mutate(data.name);
+    mutation.mutate(data);
   }
 
   if (query.isLoading) return (<p>Loading...</p>)
@@ -44,6 +47,7 @@ function App() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input defaultValue="Dog name" {...register("name")} />
+        <input type="file" {...register("image")} />
         <input type="submit" />
       </form>
       {query.data?.map((dog) => {
@@ -68,5 +72,6 @@ type Dog = {
 }
 
 type Inputs = {
-  name: string
+  name: string;
+  image: File
 }
