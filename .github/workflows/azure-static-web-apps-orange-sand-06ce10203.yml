@@ -39,5 +39,6 @@ jobs:
           ###### Repository/Build Configurations - These fields are configured during the Azure SWA setup
           app_location: "frontend" # Location for the source code of your app
           api_location: "" # No API for static frontend
+          skip_api_build: true
           output_location: "dist" # Build output directory
 
