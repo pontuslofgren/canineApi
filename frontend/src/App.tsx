@@ -17,8 +17,8 @@ function App() {
   }
 
 
-  
-
+  if (query.isLoading) return (<p>Loading...</p>)
+  if (query.error) return (<p>Something went wrong.</p>)
   return (
     <>
       {query.data?.map((dog) => {
@@ -29,6 +29,7 @@ function App() {
 
     </>
   )
+
 }
 
 export default App
