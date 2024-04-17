@@ -7,7 +7,7 @@ import {  useQuery, useQueryClient } from "react-query";
 function App() {
 
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const query = useQuery({queryKey:['getdogs'], queryFn: getDogs})
   
   async function getDogs(): Promise<Dog[]>{
