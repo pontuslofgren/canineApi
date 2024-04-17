@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("OpenPolicy", policy =>
     {
-        policy.WithOrigins("https://gray-stone-0c8c3f703.5.azurestaticapps.net")
+        policy.WithOrigins("https://orange-sand-06ce10203.5.azurestaticapps.net")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
