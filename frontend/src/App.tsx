@@ -1,5 +1,5 @@
 
-import {  useQuery, useQueryClient } from "react-query";
+import {  useQuery} from "react-query";
 
 
 
