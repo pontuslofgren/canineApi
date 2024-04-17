@@ -25,12 +25,16 @@ function App() {
     const formData = new FormData();
     formData.append("Name", data.name);
     formData.append("Image", data.image);
+    console.log(formData);
 
-    await fetch("https://canineapplab.azurewebsites.net/dogs", {
+    const response = await fetch("https://canineapplab.azurewebsites.net/dogs", {
       method: 'POST',
-      headers: { 'Content-Type': 'multipart/form-data' },
+      // headers: { 'Content-Type': 'multipart/form-data' },
+      mode: 'no-cors',
       body: formData
     });
+
+    console.log(response);
   }
 
   const {
