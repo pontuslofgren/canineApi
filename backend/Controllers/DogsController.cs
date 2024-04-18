@@ -13,11 +13,17 @@ public class DogsController : ControllerBase
 
     private readonly CanineContext _context;
     private readonly string _blobConnectionString;
+    private readonly BlobServiceClient _blobServiceClient;
+
+    private readonly BlobContainerClient _containerClient;
 
     public DogsController(IConfiguration config, CanineContext context)
     {
         _context = context;
         _blobConnectionString = config.GetConnectionString("BlobStorage")!;
+        _blobServiceClient = new BlobServiceClient(_blobConnectionString);
+        _containerClient = _blobServiceClient.GetBlobContainerClient("dogblobs");
+
     }
  [HttpGet]
  public async Task<ActionResult<List<Dog>>> Get()
@@ -29,14 +35,10 @@ public class DogsController : ControllerBase
  [HttpPost]
  public async Task<ActionResult<Dog>> Post([FromForm] DogRequest request)
  {
-    var blobServiceClient = new BlobServiceClient(_blobConnectionString);
-   
-   BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient("dogblobs");
-   
    // Set filename for blob
    string fileName = request.Name + "_" + Guid.NewGuid().ToString();
 // Get a reference to a blob
-   var blobClient = containerClient.GetBlobClient(fileName);
+   var blobClient = _containerClient.GetBlobClient(fileName);
    
    using (var stream = request.Image.OpenReadStream())
    {
@@ -55,6 +57,22 @@ public class DogsController : ControllerBase
     return Ok(newDog);
  }
 
+    // DELETE: api/Dog/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteDog(int id)
+    {
+        var dog = await _context.Dogs.FindAsync(id);
+        if (dog == null)
+        {
+            return NotFound();
+        }
+
+        _context.Dogs.Remove(dog);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
    //       // PUT: api/Dog/5
    //  // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
    //  [HttpPut]
@@ -70,20 +88,6 @@ public class DogsController : ControllerBase
 
    //  }
 
-   //      // DELETE: api/Dog/5
-   //  [HttpDelete("{id}")]
-   //  public async Task<IActionResult> DeleteDog(int id)
-   //  {
-   //      var dog = await _context.Dogs.FindAsync(id);
-   //      if (dog == null)
-   //      {
-   //          return NotFound();
-   //      }
 
-   //      _context.Dogs.Remove(dog);
-   //      await _context.SaveChangesAsync();
-
-   //      return NoContent();
-   //  }
 
 }
