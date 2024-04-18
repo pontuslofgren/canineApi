@@ -1,6 +1,8 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form"
+import DogCards from "./DogCard";
+import DogCard from "./DogCard";
 
 function App() {
 
@@ -54,10 +56,7 @@ function App() {
       </form>
       {query.data?.map((dog) => {
         return (
-          <div>
-            <p>{dog.name}</p>
-            <img src={dog.imageUrl} />
-          </div>
+          <DogCard dog={dog} />
         )
       })}
     </>
@@ -67,7 +66,7 @@ function App() {
 
 export default App
 
-type Dog = {
+export type Dog = {
   id: number;
   name: string;
   imageUrl: string;

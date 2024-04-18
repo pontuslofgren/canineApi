@@ -55,4 +55,35 @@ public class DogsController : ControllerBase
     return Ok(newDog);
  }
 
+   //       // PUT: api/Dog/5
+   //  // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+   //  [HttpPut]
+   //  public async Task<IActionResult> PutDog(DogRequest request)
+   //  {
+   //    var existing = await _context.Dogs.FirstOrDefaultAsync(i => i.Name == request.Name);
+   //      if (existing == null)
+   //      {
+   //          return NotFound();
+   //      }
+
+   //    //   _context.Entry(dog).State = EntityState.Modified;
+
+   //  }
+
+   //      // DELETE: api/Dog/5
+   //  [HttpDelete("{id}")]
+   //  public async Task<IActionResult> DeleteDog(int id)
+   //  {
+   //      var dog = await _context.Dogs.FindAsync(id);
+   //      if (dog == null)
+   //      {
+   //          return NotFound();
+   //      }
+
+   //      _context.Dogs.Remove(dog);
+   //      await _context.SaveChangesAsync();
+
+   //      return NoContent();
+   //  }
+
 }
