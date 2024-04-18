@@ -1,7 +1,6 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form"
-import DogCards from "./DogCard";
 import DogCard from "./DogCard";
 
 function App() {
