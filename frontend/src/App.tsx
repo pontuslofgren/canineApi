@@ -24,13 +24,11 @@ function App() {
   async function postDog(data: Inputs) {
     const formData = new FormData();
     formData.append("Name", data.name);
-    formData.append("Image", data.image);
+    formData.append("Image", data.image[0]);
     console.log(formData);
 
     const response = await fetch("https://canineapplab.azurewebsites.net/dogs", {
       method: 'POST',
-      // headers: { 'Content-Type': 'multipart/form-data' },
-      mode: 'no-cors',
       body: formData
     });
 
@@ -77,5 +75,5 @@ type Dog = {
 
 type Inputs = {
   name: string;
-  image: File
+  image: FileList
 }
