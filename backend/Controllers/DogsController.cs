@@ -58,21 +58,28 @@ public class DogsController : ControllerBase
       return Ok(newDog);
    }
 
-   // DELETE: api/Dog/5
-   [HttpDelete("{id}")]
-   public async Task<IActionResult> DeleteDog(int id)
-   {
-      var dog = await _context.Dogs.FindAsync(id);
-      if (dog == null)
-      {
-         return NotFound();
-      }
+   // // DELETE: api/Dog/5
+   // [HttpDelete("{id}")]
+   // public async Task<IActionResult> DeleteDog(int id)
+   // {
 
-      _context.Dogs.Remove(dog);
-      await _context.SaveChangesAsync();
+   //    var dog = await _context.Dogs.FindAsync(id);
+   //    if (dog == null)
+   //    {
+   //       return NotFound();
+   //    }
 
-      return NoContent();
-   }
+   //    var blobClient = _containerClient.GetBlobClient(dog.ImageUrl);
+   //    using (var stream = dog.ImageUrl.OpenReadStream())
+   //    {
+
+   //    }
+
+   //    _context.Dogs.Remove(dog);
+   //    await _context.SaveChangesAsync();
+
+   //    return NoContent();
+   // }
 
    //       // PUT: api/Dog/5
    //  // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
